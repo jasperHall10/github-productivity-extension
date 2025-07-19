@@ -1,0 +1,14 @@
+{
+  "manifest_version": 3,
+  "name": "GitHub Productivity Booster",
+  "version": "1.0",
+  "description": "Quick GitHub navigation and insights.",
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": "icons/icon128.png"
+  },
+  "permissions": [],
+  "icons": {
+    "128": "icons/icon128.png"
+  }
+}
