@@ -4,10 +4,12 @@
   "version": "1.0",
   "description": "Quick GitHub navigation and insights.",
   "action": {
-    "default_popup": "popup.html",
+    "default_popup": "popup/popup.html",
     "default_icon": "icons/icon128.png"
   },
-  "permissions": [],
+  "permissions": [
+    "tabs"
+  ],
   "icons": {
     "128": "icons/icon128.png"
   }

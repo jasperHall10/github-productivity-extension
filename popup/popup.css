@@ -1,0 +1,21 @@
+html{
+    background-color: #101411;
+    width: auto;
+    height: auto;
+}
+
+#button-div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+button{
+    background-color: #104C35;
+    color: #e4ebe6;
+    border-color: #e4ebe6;
+    text-align: center;
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+}
