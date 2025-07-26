@@ -8,11 +8,47 @@
     <script src="popup.js"></script>
 </head>
 <body>
-    <div id="button-div">
-        <button id="repo">Repositories</button>
-        <button id="star">Starred</button>
-        <button id="gist">Gists</button>
-        <button id="noti">Notifications</button>
+    <div id="login-view">
+        <h3>Login to GitHub</h3>
+        <input type="password" id="token-input" placeholder="Enter GitHub token" />
+        <button id="save-token">Save Token</button>
+    </div>
+
+    <div id="main-view" style="display:none;"></div>
+        <div id="header">
+            <span>
+                <button id="menu-btn" class="hamburger">
+                    <span class="hamburger-icon">☰</span>
+                </button>
+            </span>
+            <span id="title">GitHub Productivity</span>
+        </div>
+        <hr>
+
+        <div id="user-info">
+            <div id="user-name" class="center-aligned">
+                <img src="" alt="Avatar" id="avatar">
+                <span id="user"></span>
+            </div>
+            <div id="user-stats" class="center-aligned">
+                <span id="repos"></span>
+                <span id="notis"></span>
+            </div>
+        </div>
+        <hr>
+
+        <div class="center-aligned" id="button-nav">
+            <button class="link-buttons nav-buttons" id="repo">Repositories</button>
+            <button class="link-buttons nav-buttons" id="star">Starred</button>
+            <button class="link-buttons nav-buttons" id="gist">Gists</button>
+            <button class="link-buttons nav-buttons" id="noti">Notifications</button>
+        </div>
+        <hr>
+
+        <div id="footer">
+            <button id="refresh" class="footer-button">⟳ Refresh</button>
+            <button id="settings" class="footer-button">⚙ Settings</button>
+        </div> 
     </div>
 </body>
 </html>
