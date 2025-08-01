@@ -1,32 +1,32 @@
 html{
-    background-color: #101411;
-    width: 300px;
-    height: auto;
-    font-family: Consolas, "Liberation Mono", Courier, monospace;
-    color: #bfffd1;
+  background-color: #101411;
+  width: 300px;
+  height: auto;
+  font-family: Consolas, "Liberation Mono", Courier, monospace;
+  color: #bfffd1;
 }
 
-#button-nav{
-    flex-direction: column;
+*{
+  box-sizing: border-box;
 }
 
-#avatar{
-  max-width: 10vw;
-  max-height: 10vw;
-  border: 2px solid #bfffd1;
-}
-
-#user-name{
+.center-aligned{
   display: flex;
-  font-weight: bold;
-  gap: 8vw;
+  justify-content: center;
+  align-items: center;
 }
 
-#title{
-    font-size: 20px;
-    font-weight: bolder;
-    flex: 1;            
-    text-align: center;
+.link-buttons{  
+  background-color: #104C35;
+  color: #e4ebe6;
+  border: 1px ;  
+  text-align: center;
+  transition: background-color 0.25s ease;
+  cursor: pointer;
+}
+
+.link-buttons:hover {
+  background-color: #08872b;
 }
 
 #header{
@@ -38,11 +38,14 @@ html{
   box-sizing: border-box;    
 }
 
-.hamburger {
+#dropdown-wrapper{
+  position: relative;
+  display: inline-block;
+}
+
+.symbol-button {
   background: none;
-  border: none;
-  width: 32px;
-  height: 32px; 
+  border: none; 
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -50,51 +53,93 @@ html{
   padding: 0;
 }
 
-.hamburger-icon {
+#menu-btn{
+  width: 32px;
+  height: 32px;
+}
+
+.symbol-icon {
   font-size: 20px;
   color: #bfffd1;
-  transition: transform 0.2s linear, color 0.2s linear;
+  transition: transform 0.25s linear, color 0.25s linear;
   transform-origin: center;
 }
 
-.hamburger:hover .hamburger-icon {
-  transform: scale(1.3);
+.symbol-button:hover .symbol-icon {
+  transform: scale(1.5);
   font-weight: bolder;
+  color:#08872b;
+}
+
+#title{
+  font-size: 20px;
+  font-weight: bolder;
+  flex: 1;
+  text-align: center;
 }
 
 #user-info{
-    font-size: medium;
-    color: #bfffd1;
+  font-size: medium;
+  color: #bfffd1;
+}
+
+#user-name{
+  display: flex;
+  font-weight: bold;
+  gap: 8vw;
+}
+
+#avatar{
+  max-width: 10vw;
+  max-height: 10vw;
+  border: 2px solid #bfffd1;
 }
 
 #user-stats{
-    gap: 20vw;     
-}
-.nav-buttons{
-    font-size: 20px; 
-    border-radius: 8px; 
-    padding: 5px;
-    margin: 8px;
+  gap: 20vw;     
 }
 
-.link-buttons{  
-    background-color: #104C35;
-    color: #e4ebe6;
-    border: 1px ;  
-    text-align: center;
-    display: block;
-    width: 100%;
-    transition: background-color 0.25s ease;
+#top-repos{
+  flex-direction: column;
 }
 
-.link-buttons:hover {
-  background-color: #08872b;
+.repo-inline{
+  border-radius: 2px;
+  border-width: 2px;
+  color: #104C35;
+  border: solid;
+  margin: 8px 0;
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 10px;
+  width: 100%
+}
+
+.repo-name{
+  white-space: nowrap;
+  color: #bfffd1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1;
+  display: block;
+  max-width: 55vw;
+}
+
+.repo-inline-extra{
+  display: flex;
+  color: #bfffd1;
+  align-items: center;
+  gap: 5vw;
+  flex-shrink: 0;
+}
+
+.repo-prs{
+  white-space: nowrap;
+  font-size: 14px;
 }
 
 #footer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: row;
   gap: 5px;
   padding: 6px 0;
@@ -103,27 +148,11 @@ html{
 .footer-button {
   flex: 1;
   font-size: 10px;
-  font-family: sans-serif;
-  border: none;
   border-radius: 5px;
-  background-color: #104C35;
-  color: #e4ebe6;
+  border: none;
   padding: 6px 0;
   line-height: 1;
   white-space: nowrap;
-  cursor: pointer;
-  transition: background-color 0.25s ease;
-  text-align: center;
-}
-
-.footer-button:hover {
-  background-color: #08872b;
-}
-
-.center-aligned{
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 #login-view {
@@ -139,4 +168,42 @@ html{
   justify-content: center;
   gap: 10px;
   z-index: 10;
+}
+
+#button-nav{
+  flex-direction: column;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  border: 5px solid #104C35;
+  background-color: #101411;
+  border-radius: 2px;
+  box-shadow: 0 4px 8px rgba(0,0,0,1);
+  z-index: 10;
+  padding: 2vw;
+
+  transform-origin: top;
+  transform: scaleY(0);
+  pointer-events: none;
+  transition: transform 0.7s ease;
+}
+
+#dropdown-wrapper:hover #button-nav {
+  transform: scaleY(1);
+  pointer-events: auto;
+}
+
+#dropdown-wrapper:hover .symbol-icon {
+  transform: scale(1.5);
+  font-weight: bolder;
+  color:#08872b;
+}
+
+.nav-buttons{
+  font-size: 14px; 
+  border-radius: 4px; 
+  padding: 3px;
+  margin: 5px;
+  display: block;
+  width: 100%;
 }

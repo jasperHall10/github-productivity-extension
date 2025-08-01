@@ -69,7 +69,8 @@ document.addEventListener("DOMContentLoaded", function() {
             const data = await res.json();
             await chrome.storage.session.set({user: data.login});
             await chrome.storage.session.set({avatar: data.avatar_url});
-            await chrome.storage.session.set({repos: data.public_repos});
+            const totalRepos = data.public_repos + (data.total_private_repos || 0);
+            await chrome.storage.session.set({repos: totalRepos});
 
             const notiRes = await fetch('https://api.github.com/notifications', {
                 headers: { 'Authorization': `token ${token}` }
@@ -84,7 +85,7 @@ document.addEventListener("DOMContentLoaded", function() {
     async function updateInfo() {
         await getData();
         const username = await chrome.storage.session.get('user');
-        setNavButtons(username);
+        setNavButtons(username.user);
         document.getElementById('user').innerHTML = `@${username.user}`;
         const avatar_url = await chrome.storage.session.get('avatar');
         document.getElementById('avatar').src = avatar_url.avatar;
@@ -118,4 +119,18 @@ document.addEventListener("DOMContentLoaded", function() {
     document.getElementById("refresh").onclick = async () => {
         await updateInfo();
     }
+
+    function shrinkTextToFit(el, minSize = 12, maxSize = 18) {
+        let size = maxSize;
+        el.style.fontSize = `${size}px`;
+        while (el.scrollWidth > el.clientWidth && size > minSize) {
+            size -= 0.5;
+            el.style.fontSize = `${size}px`;
+        }
+        console.log(size);
+    }
+
+    document.querySelectorAll(".repo-name").forEach(el => {
+        shrinkTextToFit(el)
+    });
 })
