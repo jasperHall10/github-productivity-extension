@@ -26,3 +26,12 @@
 - Fethced information regarding username, avatar, repository count, etc. from GitHub API
 - Worked with chrome.storage.local and chrome.storage.session to update information and remain logged in
 - Commit: "Day 3: Updated UI and implemented login and personal data features"
+
+# Day 4 - Main Repository Placeholder
+
+- Created a new home screen main section
+- Main section includes 5 repositories with buttons which will link to more information on each
+- Created placeholders for each
+- Unified all buttons, and altered appearance slightly
+- Moved button nav to dropdown from hamburger button
+- Commit: "Day 4: Updated UI to include placeholders for repository information and navigation dropdown"

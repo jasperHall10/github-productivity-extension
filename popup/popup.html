@@ -1,102 +1,166 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>GitHub Productivity</title>
-    <link rel="stylesheet" href="popup.css">
+    <link rel="stylesheet" href="popup.css" />
+    <link rel="stylesheet" href="toggle.css" />
     <script src="popup.js"></script>
-</head>
-<body>
+  </head>
+  <body>
     <div id="login-view">
-        <h3>Login to GitHub</h3>
-        <input type="password" id="token-input" placeholder="Enter GitHub token" />
-        <button id="save-token">Save Token</button>
+      <h3>Login to GitHub</h3>
+      <input
+        type="password"
+        class="token-input"
+        id="login-input"
+        placeholder="Enter GitHub token"
+      />
+      <button class="save-token" id="login-button">Save Token</button>
     </div>
 
     <div id="main-view">
-        <div id="header">
-            <div id="dropdown-wrapper">
-                <button id="menu-btn" class="symbol-button">
-                    <span class="symbol-icon">☰</span>
-                </button>
-                <div class="center-aligned" id="button-nav">
-                    <button class="link-buttons nav-buttons" id="repo">Repositories</button>
-                    <button class="link-buttons nav-buttons" id="star">Starred</button>
-                    <button class="link-buttons nav-buttons" id="gist">Gists</button>
-                    <button class="link-buttons nav-buttons" id="noti">Notifications</button>
-                </div>
-            </div>
-            <span id="title">GitHub Productivity</span>
+      <div id="header">
+        <div id="dropdown-wrapper">
+          <button id="menu-btn" class="symbol-button">
+            <span class="symbol-icon">☰</span>
+          </button>
+          <div class="center-aligned" id="button-nav">
+            <button class="link-buttons nav-buttons" id="repo">
+              Repositories
+            </button>
+            <button class="link-buttons nav-buttons" id="star">Starred</button>
+            <button class="link-buttons nav-buttons" id="gist">Gists</button>
+            <button class="link-buttons nav-buttons" id="noti">
+              Notifications
+            </button>
+          </div>
         </div>
-        <hr>
+        <span class="title" style="margin-left: 10px">GitHub Productivity</span>
+      </div>
+      <hr />
 
-        <div id="user-info">
-            <div id="user-name" class="center-aligned">
-                <img src="" alt="Avatar" id="avatar">
-                <span id="user"></span>
-            </div>
-            <div id="user-stats" class="center-aligned">
-                <span id="repos"></span>
-                <span id="notis"></span>
-            </div>
+      <div id="user-info">
+        <div id="user-name" class="center-aligned">
+          <img src="" alt="Avatar" id="avatar" />
+          <span id="user"></span>
         </div>
-        <hr>
-
-        <div class="center-aligned" id="top-repos">
-            <div class="repo-inline">
-                <span class="repo-name">Repo Name 1</span>
-                <div class="repo-inline-extra">
-                    <span class="repo-prs">PRs: 0</span>
-                    <button class="symbol-button">
-                        <span class="symbol-icon">→</span>
-                    </button>
-                </div>
-            </div>
-            <div class="repo-inline">
-                <span class="repo-name">Repo Name 1</span>
-                <div class="repo-inline-extra">
-                    <span class="repo-prs">PRs: 0</span>
-                    <button class="symbol-button">
-                        <span class="symbol-icon">→</span>
-                    </button>
-                </div>
-            </div>
-            <div class="repo-inline">
-                <span class="repo-name">Repo aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaName 1</span>
-                <div class="repo-inline-extra">
-                    <span class="repo-prs">PRs: 0</span>
-                    <button class="symbol-button">
-                        <span class="symbol-icon">→</span>
-                    </button>
-                </div>
-            </div>
-            <div class="repo-inline">
-                <span class="repo-name">Repo Name 1</span>
-                <div class="repo-inline-extra">
-                    <span class="repo-prs">PRs: 0</span>
-                    <button class="symbol-button">
-                        <span class="symbol-icon">→</span>
-                    </button>
-                </div>
-            </div>
-            <div class="repo-inline">
-                <span class="repo-name">Repo Name 1</span>
-                <div class="repo-inline-extra">
-                    <span class="repo-prs">PRs: 0</span>
-                    <button class="symbol-button">
-                        <span class="symbol-icon">→</span>
-                    </button>
-                </div>
-            </div>
+        <div id="user-stats" class="center-aligned">
+          <span id="repos"></span>
+          <span id="notis"></span>
         </div>
+      </div>
+      <hr />
 
-        <hr>
+      <div class="center-aligned" id="top-repos">
+        <div class="repo-inline">
+          <span class="repo-name">Repo Name 1</span>
+          <div class="repo-inline-extra">
+            <span class="repo-prs">PRs: 0</span>
+            <button class="symbol-button">
+              <span class="symbol-icon">→</span>
+            </button>
+          </div>
+        </div>
+        <div class="repo-inline">
+          <span class="repo-name">Repo Name 1</span>
+          <div class="repo-inline-extra">
+            <span class="repo-prs">PRs: 0</span>
+            <button class="symbol-button">
+              <span class="symbol-icon">→</span>
+            </button>
+          </div>
+        </div>
+        <div class="repo-inline">
+          <span class="repo-name"
+            >Repo aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaName 1</span
+          >
+          <div class="repo-inline-extra">
+            <span class="repo-prs">PRs: 0</span>
+            <button class="symbol-button">
+              <span class="symbol-icon">→</span>
+            </button>
+          </div>
+        </div>
+        <div class="repo-inline">
+          <span class="repo-name">Repo Name 1</span>
+          <div class="repo-inline-extra">
+            <span class="repo-prs">PRs: 0</span>
+            <button class="symbol-button">
+              <span class="symbol-icon">→</span>
+            </button>
+          </div>
+        </div>
+        <div class="repo-inline">
+          <span class="repo-name">Repo Name 1</span>
+          <div class="repo-inline-extra">
+            <span class="repo-prs">PRs: 0</span>
+            <button class="symbol-button">
+              <span class="symbol-icon">→</span>
+            </button>
+          </div>
+        </div>
+      </div>
 
-        <div class="center-aligned" id="footer">
-            <button id="refresh" class="footer-button link-buttons">⟳ Refresh</button>
-            <button id="settings" class="footer-button link-buttons">⚙ Settings</button>
-        </div> 
+      <hr />
+
+      <div class="center-aligned" id="footer">
+        <button id="refresh" class="footer-button link-buttons">
+          ⟳ Refresh
+        </button>
+        <button id="settings" class="footer-button link-buttons">
+          ⚙ Settings
+        </button>
+      </div>
     </div>
-</body>
+
+    <div id="settings-view" style="display: none">
+      <div id="settings-container">
+        <div id="settings-header" class="center-aligned">
+          <button class="symbol-button" id="settings-back">
+            <span class="symbol-icon">←</span>
+          </button>
+          <span class="title">⚙ Settings</span>
+        </div>
+        <div id="bottom-settings">
+          <hr />
+
+          <div class="center-aligned" id="update-token">
+            <label for="token-reinput">Update Token</label>
+            <input
+              type="password"
+              class="token-input"
+              id="settings-input"
+              placeholder="Enter GitHub token"
+            />
+            <button class="save-token" id="settings-button">Save Token</button>
+          </div>
+
+          <hr />
+
+          <div class="center-aligned" style="flex-direction: column">
+            <div>Dark Mode</div>
+            <input type="checkbox" />
+          </div>
+
+          <hr />
+
+          <div class="center-aligned" id="repo-preferences">
+            <label>Main Repo Selector</label>
+            <div
+              id="repo-list"
+              style="max-height: 35vh; overflow-y: auto"
+            ></div>
+          </div>
+
+          <hr />
+
+          <div class="center-aligned">
+            <button>Clear Cache</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

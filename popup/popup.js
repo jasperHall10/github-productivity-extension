@@ -1,8 +1,7 @@
 document.addEventListener("DOMContentLoaded", function() {
     const loginView = document.getElementById('login-view');
     const mainView = document.getElementById('main-view');
-    const tokenInput = document.getElementById('token-input');
-    const saveTokenBtn = document.getElementById('save-token');
+    const saveTokenBtns = document.querySelectorAll('.save-token');
 
     checkLogin();
 
@@ -22,18 +21,23 @@ document.addEventListener("DOMContentLoaded", function() {
         showLoginView();
     }
 
-    saveTokenBtn.addEventListener('click', async () => {
-        const token = tokenInput.value.trim();
-        if (token) {
-            const isValid = await validateToken(token);
-            if (isValid) {
-                await chrome.storage.local.set({ githubToken: token });
-                showMainView();
-            } else {
-                alert('Invalid token. Please try again.');
+    saveTokenBtns.forEach(el => {
+        const tokenMap = {'settings-button': 'settings-input', 'login-button': 'login-input'};
+        el.addEventListener('click', async () => {
+            const tokenId = tokenMap[el.id];
+            const token = document.getElementById(tokenId).value.trim();
+            if (token) {
+                const isValid = await validateToken(token);
+                if (isValid) {
+                    await chrome.storage.local.set({ githubToken: token });
+                    showMainView();
+                } else {
+                    alert('Invalid token. Please try again.');
+                }
             }
-        }
+        });
     });
+    
 
     async function validateToken(token) {
         try {
@@ -118,7 +122,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     document.getElementById("refresh").onclick = async () => {
         await updateInfo();
-    }
+    };
 
     function shrinkTextToFit(el, minSize = 12, maxSize = 18) {
         let size = maxSize;
@@ -127,10 +131,127 @@ document.addEventListener("DOMContentLoaded", function() {
             size -= 0.5;
             el.style.fontSize = `${size}px`;
         }
-        console.log(size);
     }
 
     document.querySelectorAll(".repo-name").forEach(el => {
         shrinkTextToFit(el)
     });
-})
+
+    document.getElementById('settings').onclick = async () => {
+        const settings = document.getElementById('settings-view');
+        settings.style.display = 'block';
+        
+        const height = document.getElementById('main-view').getBoundingClientRect().height;
+        settings.style.height = height + 'px';
+
+        await setUpRepoSelector();
+    };
+
+    document.getElementById("settings-back").onclick = () => {
+        document.getElementById("settings-view").style.display = 'none';
+    };
+
+    async function getAllRepos(token) {
+        let repos = [];
+        let page = 1;
+        const perPage = 100;
+
+        while (true) {
+
+            let response = await fetch(
+                `https://api.github.com/user/repos?per_page=${perPage}&page=${page}`,
+                {
+                    headers: { 'Authorization': `token ${ token }` }
+                }
+            );
+
+            if (!response.ok) {
+                const errorText = await response.text();
+                console.error("GitHub API error details:", errorText);
+                throw new Error(`GitHub API error: ${response.status}`);
+            }
+
+            let data = await response.json();
+            if (data.length === 0) break;
+
+            repos = repos.concat(data);
+            page++;
+        }
+
+        return repos;
+    }
+
+    async function setUpRepoSelector(){
+        try {
+            let result = await chrome.storage.local.get('githubToken');
+            const repos = await getAllRepos(result.githubToken);
+
+            result = await chrome.storage.local.get('chosenRepos'); 
+            const nameList = result.chosenRepos;
+
+            const repoList = document.getElementById("repo-list");
+            repoList.innerHTML = "";
+
+            repos.forEach(repo => {
+                const div = document.createElement("div");
+                div.className = "repo-item";
+
+                const input = document.createElement("input");
+                input.type = "checkbox";
+                input.className = "repo-checkbox";
+                input.value = repo.name;
+
+                if (nameList.includes(repo.name)) {
+                    input.checked = true;
+                }
+
+                input.onchange = async () => {
+                    repoChanged(input);
+                };
+
+                const span = document.createElement("span");
+                span.textContent = repo.name;
+
+                div.appendChild(input);
+                div.appendChild(span);
+
+                repoList.appendChild(div);
+            });
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
+    async function repoChanged(input) {
+        let result = await chrome.storage.local.get('repoCount');
+        const count = result.repoCount;
+        if (!count) {
+            await chrome.storage.local.set({ repoCount: 0 });
+        }
+
+        result = await chrome.storage.local.get('chosenRepos');
+        let repos = result.chosenRepos;
+        if (!repos) {
+            await chrome.storage.local.set({ chosenRepos: [] });
+        }
+
+        if (!input.checked) {
+            await chrome.storage.local.set({ repoCount: count-1 });
+            let removed = repos.indexOf(input);
+            await chrome.storage.local.set({ chosenRepos: repos.splice(removed, 1) });
+            console.log(await chrome.storage.local.get('chosenRepos'));
+            return;
+            //Add removing from storedRepos
+        }
+
+        await chrome.storage.local.set({ repoCount: count+1 });
+        repos.push(input.value);
+        await chrome.storage.local.set({ chosenRepos: repos });
+        const a = await chrome.storage.local.get('chosenRepos');
+        console.log(a.chosenRepos); 
+    }
+
+    async function storeRepo(repoName, pos){
+        
+    }
+});
