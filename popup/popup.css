@@ -163,13 +163,19 @@ hr{
   white-space: nowrap;
 }
 
+.save-token {
+  outline: solid;
+  outline-color: #486750;
+  outline-width: 1px;
+}
+
 #login-view {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: white;
+  background: #101411;
   display: flex;
   flex-direction: column;
   align-items: center;

@@ -237,21 +237,49 @@ document.addEventListener("DOMContentLoaded", function() {
 
         if (!input.checked) {
             await chrome.storage.local.set({ repoCount: count-1 });
-            let removed = repos.indexOf(input);
-            await chrome.storage.local.set({ chosenRepos: repos.splice(removed, 1) });
+            const removed = repos.indexOf(input.value);
+            if (removed !== -1) {
+                repos.splice(removed, 1);
+            }
+            await chrome.storage.local.set({ chosenRepos: repos });
             console.log(await chrome.storage.local.get('chosenRepos'));
+
             return;
-            //Add removing from storedRepos
+        }
+
+        if (count == 5) {
+            const removed = repos.shift();
+            const checkboxes = document.querySelectorAll('.repo-checkbox');
+            for(const checkbox of checkboxes) {
+                if (checkbox.value == removed) {
+                    checkbox.checked = false;
+                    break;
+                }
+            }
+            await chrome.storage.local.set({ repoCount: 4 });
         }
 
         await chrome.storage.local.set({ repoCount: count+1 });
         repos.push(input.value);
         await chrome.storage.local.set({ chosenRepos: repos });
         const a = await chrome.storage.local.get('chosenRepos');
-        console.log(a.chosenRepos); 
     }
 
-    async function storeRepo(repoName, pos){
-        
+    async function showRepos(){
+        const divList = document.getElementById("top-repos");
+        const response = await chrome.storage.local.get("chosenRepos");
+        const repoList = response.chosenRepos;
+
+        //Each 'const repo' is just the repo name (stored as repo.name)
+        for (const repo of repoList) {
+            //GET REPO INFORMATION FROM GIT API
+
+            const outerDiv = document.createElement('div');
+            outerDiv.className = 'repo-inline';
+
+            const nameSpan = document.createElement('span');
+            nameSpan.className = 'repo-name';
+            nameSpan.innerHTML = repo;
+        }
     }
 });
