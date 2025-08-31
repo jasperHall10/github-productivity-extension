@@ -109,6 +109,7 @@ hr{
 
 #top-repos{
   flex-direction: column;
+  height: 61vh;
 }
 
 .repo-inline{
@@ -281,4 +282,8 @@ hr{
 }
 .repo-checkbox {
   margin-right: 10px;
+}
+
+#clear-cache {
+  padding-top: 2vh;
 }

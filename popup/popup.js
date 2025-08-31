@@ -147,8 +147,11 @@ document.addEventListener("DOMContentLoaded", function() {
         await setUpRepoSelector();
     };
 
-    document.getElementById("settings-back").onclick = () => {
+    document.getElementById("settings-back").onclick = async () => {
+        console.log(document.getElementById('top-repos').offsetHeight);
         document.getElementById("settings-view").style.display = 'none';
+        await showRepos();
+        console.log(document.getElementById('top-repos').offsetHeight);
     };
 
     async function getAllRepos(token) {
@@ -186,8 +189,11 @@ document.addEventListener("DOMContentLoaded", function() {
             let result = await chrome.storage.local.get('githubToken');
             const repos = await getAllRepos(result.githubToken);
 
-            result = await chrome.storage.local.get('chosenRepos'); 
-            const nameList = result.chosenRepos;
+            result = await chrome.storage.local.get('chosenRepos');
+            let nameList = result.chosenRepos;
+            if (!nameList) {
+                nameList = await chrome.storage.local.set({ chosenRepos: [] });
+            }
 
             const repoList = document.getElementById("repo-list");
             repoList.innerHTML = "";
@@ -224,49 +230,54 @@ document.addEventListener("DOMContentLoaded", function() {
 
     async function repoChanged(input) {
         let result = await chrome.storage.local.get('repoCount');
-        const count = result.repoCount;
+        let count = result.repoCount;
         if (!count) {
             await chrome.storage.local.set({ repoCount: 0 });
         }
 
+        console.log(count);
+
         result = await chrome.storage.local.get('chosenRepos');
         let repos = result.chosenRepos;
-        if (!repos) {
-            await chrome.storage.local.set({ chosenRepos: [] });
-        }
 
         if (!input.checked) {
-            await chrome.storage.local.set({ repoCount: count-1 });
+            count -= 1;
+            await chrome.storage.local.set({ repoCount: count });
             const removed = repos.indexOf(input.value);
             if (removed !== -1) {
                 repos.splice(removed, 1);
             }
             await chrome.storage.local.set({ chosenRepos: repos });
-            console.log(await chrome.storage.local.get('chosenRepos'));
-
-            return;
-        }
-
-        if (count == 5) {
-            const removed = repos.shift();
-            const checkboxes = document.querySelectorAll('.repo-checkbox');
-            for(const checkbox of checkboxes) {
-                if (checkbox.value == removed) {
-                    checkbox.checked = false;
-                    break;
+            console.log(await chrome.storage.local.get('repoCount'));
+        } else {
+            if (count > 4) {
+                const removed = repos.shift();
+                const checkboxes = document.querySelectorAll('.repo-checkbox');
+                for(const checkbox of checkboxes) {
+                    if (checkbox.value == removed) {
+                        checkbox.checked = false;
+                        break;
+                    }
                 }
+                count -= 1;
+                await chrome.storage.local.set({ repoCount: count });
             }
-            await chrome.storage.local.set({ repoCount: 4 });
-        }
 
-        await chrome.storage.local.set({ repoCount: count+1 });
-        repos.push(input.value);
-        await chrome.storage.local.set({ chosenRepos: repos });
-        const a = await chrome.storage.local.get('chosenRepos');
+            count += 1;
+            await chrome.storage.local.set({ repoCount: count });
+            repos.push(input.value);
+            await chrome.storage.local.set({ chosenRepos: repos });
+            // const a = await chrome.storage.local.get('chosenRepos');
+
+        
+        }
+        console.log(count);
     }
 
     async function showRepos(){
+        console.log("RUN");
         const divList = document.getElementById("top-repos");
+        divList.innerHTML = "";
         const response = await chrome.storage.local.get("chosenRepos");
         const repoList = response.chosenRepos;
 
@@ -280,6 +291,20 @@ document.addEventListener("DOMContentLoaded", function() {
             const nameSpan = document.createElement('span');
             nameSpan.className = 'repo-name';
             nameSpan.innerHTML = repo;
+
+            const innerDiv = document.createElement('div');
+            innerDiv.className = 'repo-inline-extra';
+
+            const prSpan = document.createElement('span');
+            prSpan.className = 'repo-prs';
+            prSpan.innerHTML = `PRs: 0`;
+
+            innerDiv.appendChild(prSpan);
+
+            outerDiv.appendChild(nameSpan);
+            outerDiv.appendChild(innerDiv);
+
+            divList.appendChild(outerDiv);
         }
     }
 });

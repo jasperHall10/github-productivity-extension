@@ -35,3 +35,12 @@
 - Unified all buttons, and altered appearance slightly
 - Moved button nav to dropdown from hamburger button
 - Commit: "Day 4: Updated UI to include placeholders for repository information and navigation dropdown"
+
+# Day 5 - Settings
+
+- Finishes stylizing the settings page
+- Looking into customizing main repos to appear on home page
+- Slight stylistic changes to the login page
+- Implemented Dark mode switch, clear cache, and chose Repos without functionality
+- Implemented reset token with functionality (need to confirm functionality)
+- Commit: "Day 5: Updated Settings to include placeholders for future functionality, and began working on settings functionality"
