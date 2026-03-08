@@ -53,3 +53,7 @@
 - Looked into fetching information from each repo
 - Switched Dark Mode to default and made dark mode switch a light mode switch
 - Commit "Day 6: Continuing settings functionality and style"
+
+# Day 7+ – Continued Development
+- Subsequent features (rate limiting, error handling, repo filtering, etc.) developed iteratively
+- See README for full feature list

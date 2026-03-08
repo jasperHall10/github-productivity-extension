@@ -1,109 +1,160 @@
+<div align="center">
+
 # GitHub Productivity Booster
 
-A Chrome extension for quick GitHub navigation and insights.
+**A Chrome extension for quick GitHub navigation, repository insights, and streamlined workflow access.**
+
+[![Chrome Extension](https://img.shields.io/badge/Chrome-Extension-4285F4?logo=googlechrome&logoColor=white)](https://developer.chrome.com/docs/extensions/)
+[![Manifest V3](https://img.shields.io/badge/Manifest-V3-success)](https://developer.chrome.com/docs/extensions/mv3/intro/)
+[![GitHub API](https://img.shields.io/badge/GitHub-API-181717?logo=github)](https://docs.github.com/en/rest)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
+</div>
 
 ---
 
-## Current Features
+## Overview
 
-### Authentication
-- **Token-based login** – Users authenticate via a GitHub Personal Access Token (PAT)
-- **Token validation** – Validates token against the GitHub API before storing
-- **Persistent login** – Token stored in `chrome.storage.local` to persist across sessions
-- **Token update** – Users can update their token from the settings page
+GitHub Productivity Booster puts your most important GitHub data one click away. Pin your key repositories, monitor open PRs, check notifications, and navigate to any GitHub page instantly—all from your browser toolbar.
 
-### User Dashboard
-- **User info display** – Shows username and avatar fetched from GitHub API
-- **Repository count** – Displays total repos (public + private)
-- **Notification count** – Shows unread notification count
-
-### Quick Navigation
-- **Repositories** – Opens user's repositories tab on GitHub
-- **Starred** – Opens user's starred repositories
-- **Gists** – Opens user's gists page
-- **Notifications** – Opens GitHub notifications
-
-### Main Repos Section
-- **Pinned repositories** – Display up to 5 user-selected repositories on the home screen
-- **Repository selector** – Settings page allows choosing which repos to display
-- **PR count display** – Shows actual open PR count for each pinned repo
-- **Repo detail view** – Slide-in panel showing stars, forks, watchers, issues, and last updated
-- **Owner/Org filtering** – Filter repos by personal or specific organizations
-- **Visibility filtering** – Filter repos by public/private
-
-### Settings
-- **Light/Dark mode toggle** – Switch between dark (default) and light themes
-- **Repository preferences** – Select up to 5 repos to display on home screen
-- **Update token** – Change the stored GitHub token
-- **Clear cache** – Clears all local and session storage, logs user out
-
-### UI/UX
-- **Hamburger menu** – Dropdown navigation with quick links
-- **Responsive text** – Repository names auto-shrink to fit available space
-- **Smooth transitions** – Hover effects and color transitions on buttons
+**Built with:** Vanilla JavaScript, Chrome Extension APIs (Manifest V3), GitHub REST API
 
 ---
 
-## Requirements
+## Features
 
-### GitHub Token Scopes
-| Scope | Purpose |
-|-------|---------|
-| `repo` | Access private repositories and PR counts |
-| `notifications` | Read notifications list |
-| `read:org` | List user's organizations for repo filtering |
+### 🔐 Secure Authentication
+- Token-based login with GitHub Personal Access Tokens (PAT)
+- Client-side token format validation before API calls
+- Persistent sessions via `chrome.storage.local`
 
-### Chrome Permissions
-- `tabs` – Open new tabs for navigation links
-- `storage` – Store token and user preferences
+### 📊 Dashboard
+- Profile display with avatar and username
+- Repository count and unread notification badge
+- One-click navigation to Repos, Stars, Gists, and Notifications
 
-### Browser Compatibility
-- Chrome (Manifest V3)
-- Chromium-based browsers (Edge, Brave, etc.)
+### 📌 Pinned Repositories
+- Select up to 5 repositories to display on the home screen
+- Live open PR count per repository
+- Slide-in detail panel: stars, forks, watchers, issues, last updated
+- Filter by owner/organization and visibility (public/private)
+
+### ⚙️ Settings
+- Light/Dark mode toggle
+- Repository selector with org and visibility filters
+- Token update and cache clear options
+
+### 🎨 UI/UX
+- Hamburger dropdown menu for quick navigation
+- Auto-shrinking text for long repository names
+- Smooth hover transitions and responsive design
+- GitHub API rate limit handling with user feedback
+
+---
+
+## Screenshots
+
+<!-- Add screenshots here -->
+| Home | Repository Details | Settings |
+|:----:|:------------------:|:--------:|
+| ![Home](screenshots/home.png) | ![Details](screenshots/details.png) | ![Settings](screenshots/settings.png) |
+
+---
+
+## Installation
+
+### Load Unpacked (Development)
+
+1. Clone this repository:
+   ```bash
+   git clone https://github.com/jasperHall10/github-productivity-extension.git
+   ```
+2. Open Chrome and navigate to `chrome://extensions/`
+3. Enable **Developer mode** (top right)
+4. Click **Load unpacked** and select the project folder
+5. The extension icon will appear in your toolbar
+
+### Generate a GitHub Token
+
+1. Go to [GitHub Settings → Developer settings → Personal access tokens](https://github.com/settings/tokens)
+2. Click **Generate new token (classic)** or **Fine-grained token**
+3. Select the required scopes:
+
+   | Scope | Purpose |
+   |-------|---------|
+   | `repo` | Access private repos and PR counts |
+   | `notifications` | Read notifications |
+   | `read:org` | List organizations for filtering |
+
+4. Copy the token and paste it into the extension login screen
+
+---
+
+## Project Structure
+
+```
+github-productivity-extension/
+├── manifest.json        # Extension configuration (Manifest V3)
+├── icons/
+│   └── icon128.png      # Toolbar icon
+└── popup/
+    ├── popup.html       # Extension popup markup
+    ├── popup.css        # Styles (dark/light themes)
+    └── popup.js         # Core logic and GitHub API integration
+```
+
+---
+
+## Technical Highlights
+
+| Area | Implementation |
+|------|----------------|
+| **API Integration** | Async/await fetch calls to GitHub REST API with rate limit tracking |
+| **Token Security** | Regex validation for PAT formats (`ghp_`, `github_pat_`, `gho_`, legacy hex) |
+| **State Management** | `chrome.storage.local` for persistence, `chrome.storage.session` for transient data |
+| **Error Handling** | User-friendly toast messages and graceful degradation on API errors |
+| **Performance** | Caching to minimize API calls and respect rate limits |
 
 ---
 
 ## Roadmap
 
-### Done
-- [x] **Fetch actual PR counts** – Real open PR count for each pinned repo
-- [x] **Repo quick links** – Arrow button opens repo detail view
-- [x] **Loading states** – Loading indicators during API calls
-- [x] **Owner/Org filtering** – Filter repos by personal or specific organizations
-- [x] **Visibility filtering** – Filter repos by public/private
-- [x] **Rate limit handling** – Respect GitHub API rate limits with caching
-- [x] **Input validation** – Validate GitHub token format before API calls
-- [x] **Error handling UI** – Display user-friendly error toast messages
-- [x] **Show repo stats** – Stars, forks, watchers, issues, last updated in slide-in detail view
+- [ ] OAuth login flow (replace manual token entry)
+- [ ] Notification preview and mark-as-read from extension
+- [ ] Extension badge showing unread notification count
+- [ ] Recent commits display per repository
+- [ ] Custom theme support beyond light/dark
+- [ ] Keyboard navigation for accessibility
 
-### Coming Later
+---
 
-#### Repository Enhancements
-- [ ] **Recent commits** – Display last commit message or date
+## Contributing
 
-#### Notifications
-- [ ] **Notification preview** – Show notification titles/types in extension
-- [ ] **Mark as read** – Mark notifications as read from the extension
-- [ ] **Notification badges** – Show unread count on extension icon
+Contributions are welcome! Please:
 
-#### User Experience
-- [ ] **Offline detection** – Handle network errors gracefully
-- [ ] **Keyboard navigation** – Accessibility improvements
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-#### GitHub Integration
-- [ ] **OAuth login** – Replace manual token entry with OAuth flow
-- [ ] **Contribution graph** – Show contribution activity
-- [ ] **Quick actions** – Create new repo, gist, or issue from extension
+---
 
-#### Settings & Customization
-- [ ] **Custom themes** – More color scheme options beyond light/dark
-- [ ] **Repo sorting** – Sort pinned repos by name, activity, etc.
-- [ ] **Configurable refresh interval** – Auto-refresh data periodically
-- [ ] **Export/import settings** – Backup and restore preferences
+## License
 
-#### Code Quality
-- [ ] **Modular architecture** – Split JS into separate modules
-- [ ] **Unit tests** – Add test coverage
+This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
+
+---
+
+<div align="center">
+
+**[Report Bug](../../issues) · [Request Feature](../../issues)**
+
+© 2026 Jasper Hall
+
+*This project is not affiliated with, endorsed by, or sponsored by GitHub, Inc.*
+
+</div>
 
 ---
 
