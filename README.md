@@ -1,5 +1,3 @@
-<div align="center">
-
 # GitHub Productivity Booster
 
 **A Chrome extension for quick GitHub navigation, repository insights, and streamlined workflow access.**
@@ -51,52 +49,6 @@
 |:----:|:------------------:|:--------:|
 | ![Home](screenshots/home.png) | ![Details](screenshots/details.png) | ![Settings](screenshots/settings.png) |
 
----
-
-## Installation
-
-1. Clone or download this repository
-2. Open Chrome and navigate to `chrome://extensions/`
-3. Enable "Developer mode" (top right)
-4. Click "Load unpacked" and select the project folder
-5. Click the extension icon and enter your GitHub PAT
-
----
-
-## Token Setup
-
-1. Go to [GitHub Settings > Developer settings > Personal access tokens](https://github.com/settings/tokens)
-2. Generate a new token (classic) with scopes: `repo`, `notifications`
-3. Copy the token and paste it into the extension login
-
----
-
-### Load Unpacked (Development)
-
-1. Clone this repository:
-   ```bash
-   git clone https://github.com/jasperHall10/github-productivity-extension.git
-   ```
-2. Open Chrome and navigate to `chrome://extensions/`
-3. Enable **Developer mode** (top right)
-4. Click **Load unpacked** and select the project folder
-5. The extension icon will appear in your toolbar
-
-### Generate a GitHub Token
-
-1. Go to [GitHub Settings → Developer settings → Personal access tokens](https://github.com/settings/tokens)
-2. Click **Generate new token (classic)** or **Fine-grained token**
-3. Select the required scopes:
-
-   | Scope | Purpose |
-   |-------|---------|
-   | `repo` | Access private repos and PR counts |
-   | `notifications` | Read notifications |
-   | `read:org` | List organizations for filtering |
-
-4. Copy the token and paste it into the extension login screen
-
----
 
 ## Project Structure
 
@@ -111,7 +63,6 @@ github-productivity-extension/
     └── popup.js         # Core logic and GitHub API integration
 ```
 
----
 
 ## Technical Highlights
 
@@ -125,7 +76,7 @@ github-productivity-extension/
 
 ---
 
-## Roadmap
+## Future Roadmap
 
 - [ ] OAuth login flow (replace manual token entry)
 - [ ] Notification preview and mark-as-read from extension
@@ -138,7 +89,7 @@ github-productivity-extension/
 
 ## Contributing
 
-Contributions are welcome! Please:
+Contributions are welcome (especially with the items above)! Please:
 
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/amazing-feature`)
