@@ -8,6 +8,23 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 
+## Project Blurb
+
+A productivity-focused Chrome extension that brings your most important GitHub information and actions right to your browser toolbar. Designed for developers who want fast access to their repositories, notifications, and contribution stats without leaving their workflow.
+
+**Current Features:**
+- Secure login with GitHub Personal Access Token (PAT)
+- View your GitHub avatar, username, and public repo count
+- See unread notification count and open notifications in one click
+- Pin up to 5 repositories for instant access and live PR counts
+- Quick navigation to your Repos, Stars, Gists, and Notifications
+- Filter pinned repos by owner/org and visibility (public/private)
+- Light/dark mode toggle and responsive UI
+- Settings page for token management and preferences
+- Error handling for invalid tokens and API rate limits
+
+---
+
 ## Installation
 
 
