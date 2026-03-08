@@ -54,13 +54,21 @@
 
 ```
 github-productivity-extension/
+├── .git/                # Git repository data
+├── devlog.md            # Development log
+├── LICENSE              # MIT License
 ├── manifest.json        # Extension configuration (Manifest V3)
+├── README.md            # Project documentation
 ├── icons/
-│   └── icon128.png      # Toolbar icon
-└── popup/
-    ├── popup.html       # Extension popup markup
-    ├── popup.css        # Styles (dark/light themes)
-    └── popup.js         # Core logic and GitHub API integration
+│   └── icon128.png      # Extension icon
+├── popup/
+│   ├── popup.html       # Popup UI markup
+│   ├── popup.css        # Popup styles
+│   └── popup.js         # Popup logic and API calls
+└── screenshots/
+   ├── home.png         # Home screen screenshot
+   ├── details.png      # Repo details screenshot
+   └── settings.png     # Settings screenshot
 ```
 
 
@@ -107,7 +115,7 @@ This project is licensed under the MIT License. See [LICENSE](LICENSE) for detai
 
 <div align="center">
 
-**[Report Bug](../../issues) · [Request Feature](../../issues)**
+**[Report Bug | Request Feature](../../issues)**
 
 © 2026 Jasper Hall
 
