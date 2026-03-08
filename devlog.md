@@ -44,3 +44,12 @@
 - Implemented Dark mode switch, clear cache, and chose Repos without functionality
 - Implemented reset token with functionality (need to confirm functionality)
 - Commit: "Day 5: Updated Settings to include placeholders for future functionality, and began working on settings functionality"
+
+# Day 6 - Updating Repos
+
+- Created the cycling functionality of 5 max main repos
+- Made selected repos appear on home page
+- Updated CSS of buttons in Settings
+- Looked into fetching information from each repo
+- Switched Dark Mode to default and made dark mode switch a light mode switch
+- Commit "Day 6: Continuing settings functionality and style"
