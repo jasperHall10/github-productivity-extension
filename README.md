@@ -9,48 +9,40 @@
 [![GitHub API](https://img.shields.io/badge/GitHub-API-181717?logo=github)](https://docs.github.com/en/rest)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-</div>
 
----
+## Installation
 
-## Overview
 
-GitHub Productivity Booster puts your most important GitHub data one click away. Pin your key repositories, monitor open PRs, check notifications, and navigate to any GitHub page instantly—all from your browser toolbar.
+### For End Users
 
-**Built with:** Vanilla JavaScript, Chrome Extension APIs (Manifest V3), GitHub REST API
+1. Go to the [Chrome Web Store](https://chrome.google.com/webstore/category/extensions) and search for "GitHub Productivity Booster" (or use the direct link provided by the project owner).
+2. Click **Add to Chrome** and confirm the installation.
+3. The extension icon will appear in your toolbar. Click it and enter your GitHub PAT.
 
----
+### For Developers (Development Install)
 
-## Features
+1. Clone this repository:
+   ```bash
+   git clone https://github.com/jasperHall10/github-productivity-extension.git
+   ```
+2. Open Chrome and go to `chrome://extensions/`.
+3. Enable **Developer mode** (top right).
+4. Click **Load unpacked** and select the project folder.
+5. The extension icon will appear in your toolbar. Click it and enter your GitHub PAT.
 
-### 🔐 Secure Authentication
-- Token-based login with GitHub Personal Access Tokens (PAT)
-- Client-side token format validation before API calls
-- Persistent sessions via `chrome.storage.local`
+### GitHub Token Setup (Required for All Installs)
 
-### 📊 Dashboard
-- Profile display with avatar and username
-- Repository count and unread notification badge
-- One-click navigation to Repos, Stars, Gists, and Notifications
+1. Go to [GitHub Settings → Developer settings → Personal access tokens](https://github.com/settings/tokens)
+2. Click **Generate new token (classic)** or **Fine-grained token**
+3. Select the required scopes:
 
-### 📌 Pinned Repositories
-- Select up to 5 repositories to display on the home screen
-- Live open PR count per repository
-- Slide-in detail panel: stars, forks, watchers, issues, last updated
-- Filter by owner/organization and visibility (public/private)
+   | Scope | Purpose |
+   |-------|---------|
+   | `repo` | Access private repos and PR counts |
+   | `notifications` | Read notifications |
+   | `read:org` | List organizations for filtering |
 
-### ⚙️ Settings
-- Light/Dark mode toggle
-- Repository selector with org and visibility filters
-- Token update and cache clear options
-
-### 🎨 UI/UX
-- Hamburger dropdown menu for quick navigation
-- Auto-shrinking text for long repository names
-- Smooth hover transitions and responsive design
-- GitHub API rate limit handling with user feedback
-
----
+4. Copy the token and paste it into the extension login screen
 
 ## Screenshots
 
@@ -62,6 +54,22 @@ GitHub Productivity Booster puts your most important GitHub data one click away.
 ---
 
 ## Installation
+
+1. Clone or download this repository
+2. Open Chrome and navigate to `chrome://extensions/`
+3. Enable "Developer mode" (top right)
+4. Click "Load unpacked" and select the project folder
+5. Click the extension icon and enter your GitHub PAT
+
+---
+
+## Token Setup
+
+1. Go to [GitHub Settings > Developer settings > Personal access tokens](https://github.com/settings/tokens)
+2. Generate a new token (classic) with scopes: `repo`, `notifications`
+3. Copy the token and paste it into the extension login
+
+---
 
 ### Load Unpacked (Development)
 
@@ -157,37 +165,3 @@ This project is licensed under the MIT License. See [LICENSE](LICENSE) for detai
 </div>
 
 ---
-
-## File Structure
-
-```
-github-productivity-extension/
-├── manifest.json       # Extension configuration (Manifest V3)
-├── devlog.md           # Development log
-├── README.md           # This file
-├── icons/
-│   └── icon128.png     # Extension icon
-└── popup/
-    ├── popup.html      # Main popup structure
-    ├── popup.css       # Styling
-    ├── popup.js        # Logic and API calls
-    └── toggle.css      # Toggle switch styles
-```
-
----
-
-## Installation
-
-1. Clone or download this repository
-2. Open Chrome and navigate to `chrome://extensions/`
-3. Enable "Developer mode" (top right)
-4. Click "Load unpacked" and select the project folder
-5. Click the extension icon and enter your GitHub PAT
-
----
-
-## Token Setup
-
-1. Go to [GitHub Settings > Developer settings > Personal access tokens](https://github.com/settings/tokens)
-2. Generate a new token (classic) with scopes: `repo`, `notifications`
-3. Copy the token and paste it into the extension login
